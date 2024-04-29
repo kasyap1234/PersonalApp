@@ -1,13 +1,14 @@
-package handlers 
+package handlers
+
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
-	"github.com/kasyap1234/PersonalApp/models"
 	"github.com/kasyap1234/PersonalApp/database"
+	"github.com/kasyap1234/PersonalApp/models"
 )
 func AddCreditCard(c *gin.Context) {
 var creditCard models.CreditCard ; 
-if err: = c.ShouldBindJSON(&creditCard); err !=nil {
+if err := c.ShouldBindJSON(&creditCard); err !=nil {
 	c.JSON(400,gin.H{error : "credit card details should be filled properly "})
 	return 
 }
@@ -37,11 +38,18 @@ func GetCreditCardByID(c *gin.Context){
 	c.JSON(200,creditCard);
 
 }
+
 func UpdateCreditCard(c *gin.Context){
 	var updatedCreditCard models.CreditCard 
 	id :=c.Param("id")
 	if err :=database.FindOneById(&updatedCreditCard,id) ; err !=nil {
 		c.JSON(500,gin.H{error : err.Error()})
 	}
-	
+	err=database.UpdateOne(&updatedCreditCard,id); err !=nil {
+		
+		c.JSON(500,gin.H{error: "credit card details should be filled properly "}),
+	}
+	c.JSON(200,updatedCreditCard)	
 }
+
+

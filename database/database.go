@@ -25,14 +25,14 @@ func UpdateOne(db *gorm.DB,in interface {}, id uint ){
 	db.Model(in).Where("id = ?", id).Updates(in)
 	
 }
-func UpdateOne(db *gorm.DB, in interface{} ) error {
-	return db.Save(in).Error
-}
+
 
 // DeleteOne deletes a record from the database by its ID.
 func DeleteOne(db *gorm.DB, in interface{}, id uint) error {
 	return db.Delete(in, id).Error
 }
-
+func DeleteAll(db *gorm.DB, in interface{}) error {
+    return db.Delete(in).Error
+}
 
 
