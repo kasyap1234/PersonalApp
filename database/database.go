@@ -1,37 +1,33 @@
 package database 
+
 import (
-	"gorm.io/driver/postgres"
-
+	"gorm.io/gorm"
 )
-type Database struct {
-	db *gorm.DB
-}
-func NewDatabase(db *gorm.db){
-	return &Database{db:db}
-}
-func(dtb *Database) CreateUser(user *models.User) error {
-	return dtb.db.Create(user).Error ; 
+
+// FindAll retrieves all records from a given collection (table).
+func FindAll(db *gorm.DB, out interface{}) error {
+	return db.Find(out).Error
 }
 
-func(dtb *Database) GetUserById(id uint)(*models.User,error){
-	var user models.User 
-	if err := dtb.db.First(&user,id).Error ; 
-	err !=nil {
-		return nil,err 
-	}
-	return &user,nil; 
+// FindOneById retrieves a single record by its ID.
+func FindOneById(db *gorm.DB, out interface{}, id uint) error {
+	return db.First(out, id).Error
 }
-func(dtb *Database) FindUserByEmail(email string)(*models.User,error){
-	var user models.User 
-	if err :=dtb.db.Where("email = ?",email).First(&user).Error ; 
-	err !=nil {
-		return nil,err 
-	}
-	return &user,nil;
+
+// InsertOne inserts a new record into the database.
+func InsertOne(db *gorm.DB, in interface{}) error {
+	return db.Create(in).Error
 }
-func(dtb *Database) UpdateUser(user *models.User)error {
-	return dtb.db.Save(user).Error; 
+
+// UpdateOne updates a record in the database.
+func UpdateOne(db *gorm.DB, in interface{}) error {
+	return db.Save(in).Error
 }
-func(dtb *Database) DeleteUser(user *models.User)error {
-	return dtb.db.Delete(&models.User{}).Error;
+
+// DeleteOne deletes a record from the database by its ID.
+func DeleteOne(db *gorm.DB, in interface{}, id uint) error {
+	return db.Delete(in, id).Error
 }
+
+
+
