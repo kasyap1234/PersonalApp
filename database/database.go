@@ -20,7 +20,12 @@ func InsertOne(db *gorm.DB, in interface{}) error {
 }
 
 // UpdateOne updates a record in the database.
-func UpdateOne(db *gorm.DB, in interface{}) error {
+func UpdateOne(db *gorm.DB,in interface {}, id uint ){
+
+	db.Model(in).Where("id = ?", id).Updates(in)
+	
+}
+func UpdateOne(db *gorm.DB, in interface{} ) error {
 	return db.Save(in).Error
 }
 
