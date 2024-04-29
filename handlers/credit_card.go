@@ -51,5 +51,15 @@ func UpdateCreditCard(c *gin.Context){
 	}
 	c.JSON(200,updatedCreditCard)	
 }
+func DeleteAllCreditCards(c *gin.Context){
+
+   if err :=database.DeleteAll(&models.CreditCard{}); err !=nil {
+		c.JSON(500,gin.H{error : err.Error()})
+   }
+c.JSON(200,"deleted successfully")
+
+}
+
+
 
 
