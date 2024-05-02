@@ -1,7 +1,7 @@
 package handlers
 
 import (
-	"github.com/Workiva/go-datastructures/threadsafe/err"
+	
 	"github.com/gin-gonic/gin"
 	"github.com/kasyap1234/PersonalApp/database"
 	"github.com/kasyap1234/PersonalApp/models"
@@ -32,7 +32,7 @@ func AddPassword(c *gin.Context) {
 
 	var password models.Password
 	if err := c.ShouldBindJSON(&password); err != nil {
-		c.JSON(400, gin.H{error: "password details should be filled properly "})
+		c.JSON(400, gin.H{ error: "password details should be filled properly "})
 		return
 	}
 	err = database.InsertOne(&password)

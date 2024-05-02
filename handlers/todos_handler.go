@@ -3,6 +3,8 @@ package handlers
 import (
 	"github.com/kasyap1234/PersonalApp/database"
 	"github.com/kasyap1234/PersonalApp/models"
+	"github.com/gin-gonic/gin"
+	
 )
 
 // crud operations
@@ -56,7 +58,13 @@ c.JSON(200,udpateTodo);
 // update 
 
 func DeleteAllTodos(c *gin.Context){
-	if err:=database.DeleteAll()
+
+	if err:=database.DeleteAll(&models.Todo{}); err !=nil {
+		c.JSON(500,gin.H{error : err.Error()})
+		return
+	}	
+	c.JSON(200,"deleted successfully")
+	
 }
 
 // delete 

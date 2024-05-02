@@ -3,6 +3,7 @@ package database
 import (
 	"gorm.io/gorm"
 )
+var DB *gorm.DB
 
 // FindAll retrieves all records from a given collection (table).
 func FindAll(db *gorm.DB, out interface{}) error {
